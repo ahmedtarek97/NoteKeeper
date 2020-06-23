@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,6 +17,7 @@ import java.util.List;
 
 public class NoteListActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +29,7 @@ public class NoteListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+              startActivity(new Intent(NoteListActivity.this,NoteActivity.class));
             }
         });
 
@@ -38,7 +37,7 @@ public class NoteListActivity extends AppCompatActivity {
     }
 
     private void intializeDisplayContent() {
-        ListView listNotes = findViewById(R.id.list_notes);
+       final ListView listNotes = findViewById(R.id.list_notes);
         List<NoteInfo> notes = DataManager.getInstance().getNotes();
         ArrayAdapter<NoteInfo> adapterNotes = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,notes);
         listNotes.setAdapter(adapterNotes);
@@ -53,7 +52,12 @@ public class NoteListActivity extends AppCompatActivity {
                 // we instead use NoteListActivity.this which refers to NoteListActivity
                 // second parameter we want a class information about the activity we will launch
                 Intent intent = new Intent(NoteListActivity.this,NoteActivity.class);
+                // the note at the position of the click
+//                NoteInfo note = (NoteInfo) listNotes.getItemAtPosition(position);
+                // package the clicked note in the intent and send it to the node activity
+                intent.putExtra(NoteActivity.NOTE_POSITION,position);
                 startActivity(intent);
+
 
             }
         });

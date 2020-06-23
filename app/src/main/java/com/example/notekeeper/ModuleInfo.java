@@ -3,7 +3,7 @@ package com.example.notekeeper;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public final class ModuleInfo implements Parcelable {
+public final class  ModuleInfo implements Parcelable {
     private final String mModuleId;
     private final String mTitle;
     private boolean mIsComplete = false;
